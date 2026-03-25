@@ -1,0 +1,79 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <!-- Camera -->
+      <a-camera position="0 1.6 4"></a-camera>
+
+      <!-- Ground -->
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="10"
+        height="10"
+        color="#dcdcdc"
+      >
+      </a-plane>
+
+      <!-- House Base -->
+      <a-box position="0 1 -4" width="2" height="2" depth="2" color="#c9a79d">
+        <!-- soft warm beige -->
+      </a-box>
+
+      <!-- Roof -->
+      <a-cone
+        position="0 2.5 -4"
+        radius-bottom="1.6"
+        radius-top="0"
+        height="1.5"
+        color="#8a7f8e"
+      >
+        <!-- muted purple-grey -->
+      </a-cone>
+
+      <!-- Door -->
+      <a-box
+        position="0 0.5 -2.99"
+        width="0.5"
+        height="1"
+        depth="0.05"
+        color="#e0d4c3"
+      >
+        <!-- soft light cream -->
+      </a-box>
+
+      <!-- Left Window -->
+      <a-box
+        position="-0.6 1.2 -2.99"
+        width="0.4"
+        height="0.4"
+        depth="0.05"
+        color="#b8d0d1"
+      >
+        <!-- soft pale blue -->
+      </a-box>
+
+      <!-- Right Window -->
+      <a-box
+        position="0.6 1.2 -2.99"
+        width="0.4"
+        height="0.4"
+        depth="0.05"
+        color="#b8d0d1"
+      >
+      </a-box>
+
+      <!-- Sun -->
+      <a-sphere position="3 4 -6" radius="0.5" color="#ffe5a0">
+        <!-- soft sun yellow -->
+      </a-sphere>
+
+      <!-- Sky -->
+      <a-sky color="#e8e8e8"></a-sky>
+      <!-- soft neutral sky -->
+    </a-scene>
+  </body>
+</html>
