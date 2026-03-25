@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <!-- Camera -->
+      <a-camera position="0 1.5 5"></a-camera>
+
+      <!-- CENTER (core) -->
+      <a-sphere position="0 1.5 -4" radius="0.6" color="#E63946"> </a-sphere>
+
+      <!-- STATIC RING -->
+      <a-entity position="0 1.5 -4">
+        <a-torus radius="2" radius-tubular="0.05" color="#1D3557"> </a-torus>
+
+        <!-- Satellites -->
+        <a-box
+          position="2 0 0"
+          depth="0.3"
+          height="0.3"
+          width="0.3"
+          color="#F1FA3C"
+        >
+        </a-box>
+
+        <a-sphere position="-2 0 0" radius="0.25" color="#A8DADC"> </a-sphere>
+      </a-entity>
+
+      <!-- SECOND RING (tilted, static) -->
+      <a-entity position="0 1.5 -4" rotation="45 0 0">
+        <a-torus radius="1.2" radius-tubular="0.04" color="#457B9D"> </a-torus>
+      </a-entity>
+
+      <!-- VERTICAL ACCENT -->
+      <a-cylinder position="0 0.5 -4" height="1" radius="0.1" color="#FFC65D">
+      </a-cylinder>
+
+      <!-- GROUND PLANE -->
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="10"
+        height="10"
+        color="#111111"
+      >
+      </a-plane>
+
+      <!-- SKY -->
+      <a-sky color="#0F0F0F"></a-sky>
+    </a-scene>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <!-- Camera -->
+      <a-camera position="0 1.6 6"></a-camera>
+
+      <!-- Assets (textures) -->
+      <a-assets>
+        <img
+          id="concrete"
+          src="https://cdn.aframe.io/a-painter/images/floor.jpg"
+        />
+        <img
+          id="metal"
+          src="https://cdn.aframe.io/a-painter/images/floor-normal.jpg"
+        />
+        <img
+          id="grid"
+          src="https://cdn.aframe.io/a-painter/images/uv-grid.png"
+        />
+      </a-assets>
+
+      <!-- Ground -->
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="14"
+        height="14"
+        material="src: #concrete; repeat: 6 6; roughness: 1"
+      >
+      </a-plane>
+
+      <!-- Back wall -->
+      <a-plane
+        position="0 3 -7"
+        width="14"
+        height="6"
+        material="color: #111; roughness: 1"
+      >
+      </a-plane>
+
+      <!-- Main vertical slab -->
+      <a-box
+        position="-1 2 -4"
+        width="0.4"
+        height="4"
+        depth="2"
+        material="src: #grid; roughness: 0.8"
+      >
+      </a-box>
+
+      <!-- Floating platform -->
+      <a-box
+        position="1.2 1.2 -3.5"
+        width="3"
+        height="0.2"
+        depth="1.5"
+        material="color: #1D3557; metalness: 0.2; roughness: 0.4"
+      >
+      </a-box>
+
+      <!-- Sphere (focal point) -->
+      <a-sphere
+        position="1.2 1.9 -3.2"
+        radius="0.6"
+        material="color: #E63946; metalness: 0.3; roughness: 0.2"
+      >
+      </a-sphere>
+
+      <!-- Ring intersecting space -->
+      <a-torus
+        position="0.2 1.6 -4.2"
+        rotation="0 30 90"
+        radius="1.2"
+        radius-tubular="0.06"
+        material="color: #F1FA3C; metalness: 0.5; roughness: 0.3"
+      >
+      </a-torus>
+
+      <!-- Thin vertical cylinder -->
+      <a-cylinder
+        position="2 1.5 -4.8"
+        radius="0.08"
+        height="3"
+        material="color: #A8DADC; roughness: 0.6"
+      >
+      </a-cylinder>
+
+      <!-- Small contrasting object -->
+      <a-box
+        position="-2 0.6 -3.2"
+        width="0.5"
+        height="0.5"
+        depth="0.5"
+        material="color: #FFC65D; metalness: 0.1"
+      >
+      </a-box>
+
+      <!-- Lighting -->
+      <a-light type="ambient" intensity="0.4"></a-light>
+
+      <a-light type="directional" position="3 5 2" intensity="0.8"> </a-light>
+
+      <!-- Sky -->
+      <a-sky color="#0a0a0a"></a-sky>
+    </a-scene>
+  </body>
+</html>

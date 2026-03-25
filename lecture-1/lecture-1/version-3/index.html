@@ -1,0 +1,130 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <!-- Camera -->
+      <a-camera position="0 1.6 6"></a-camera>
+
+      <!-- Assets -->
+      <a-assets>
+        <img
+          id="grid"
+          src="https://cdn.aframe.io/a-painter/images/uv-grid.png"
+        />
+      </a-assets>
+
+      <!-- Ground -->
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="14"
+        height="14"
+        material="color: #101020; emissive: #202040; emissiveIntensity: 0.08"
+      >
+      </a-plane>
+
+      <!-- Back wall -->
+      <a-plane
+        position="0 3 -7"
+        width="14"
+        height="6"
+        material="color: #111; emissive: #203040; emissiveIntensity: 0.12"
+      >
+      </a-plane>
+
+      <!-- Main vertical slab -->
+      <a-box
+        position="-1 2 -4"
+        width="0.4"
+        height="4"
+        depth="2"
+        material="src: #grid; color: #66c0ff; emissive: #66c0ff; emissiveIntensity: 0.15; roughness: 0.5"
+      >
+      </a-box>
+
+      <!-- Floating platform -->
+      <a-box
+        position="1.2 1.2 -3.5"
+        width="3"
+        height="0.2"
+        depth="1.5"
+        material="color: #7f5aff; metalness: 0.4; roughness: 0.3; emissive: #7f5aff; emissiveIntensity: 0.12"
+      >
+      </a-box>
+
+      <!-- Sphere (focal point) -->
+      <a-sphere
+        position="1.2 1.9 -3.2"
+        radius="0.6"
+        material="color: #ff8c69; metalness: 0.4; roughness: 0.2; emissive: #ff8c69; emissiveIntensity: 0.2"
+      >
+      </a-sphere>
+
+      <!-- Ring -->
+      <a-torus
+        position="0.2 1.6 -4.2"
+        rotation="0 30 90"
+        radius="1.2"
+        radius-tubular="0.06"
+        material="color: #a0ffd6; metalness: 0.4; roughness: 0.3; emissive: #a0ffd6; emissiveIntensity: 0.15"
+      >
+      </a-torus>
+
+      <!-- Thin vertical cylinder -->
+      <a-cylinder
+        position="2 1.5 -4.8"
+        radius="0.08"
+        height="3"
+        material="color: #b0c4ff; emissive: #b0c4ff; emissiveIntensity: 0.12; roughness: 0.3"
+      >
+      </a-cylinder>
+
+      <!-- Small contrasting object -->
+      <a-box
+        position="-2 0.6 -3.2"
+        width="0.5"
+        height="0.5"
+        depth="0.5"
+        material="color: #ffcda0; emissive: #ffcda0; emissiveIntensity: 0.15; metalness: 0.3"
+      >
+      </a-box>
+
+      <!-- Lighting -->
+      <a-light type="ambient" intensity="0.15" color="#ffffff"></a-light>
+
+      <a-light
+        type="directional"
+        position="3 5 2"
+        intensity="0.4"
+        color="#a0c0ff"
+      >
+      </a-light>
+
+      <a-light
+        type="point"
+        position="1.2 1.9 -3.2"
+        intensity="0.8"
+        distance="5"
+        decay="2"
+        color="#ff8c69"
+      >
+      </a-light>
+
+      <a-light
+        type="point"
+        position="-2 0.6 -3.2"
+        intensity="0.6"
+        distance="4"
+        decay="2"
+        color="#ffcda0"
+      >
+      </a-light>
+
+      <!-- Sky -->
+      <a-sky color="#080808"></a-sky>
+    </a-scene>
+  </body>
+</html>
