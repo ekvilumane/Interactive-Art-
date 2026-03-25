@@ -4,11 +4,12 @@
   </head>
   <body>
     <a-scene>
-      <a-box material="color: #3545c0" position="0 0.4924 -4.01424"></a-box>
+      <a-box material="color: #9aa2e5" position="0 0.4924 -4.01424" geometry="skipCache: true"></a-box>
       <a-entity
         geometry="primitive: cone; radiusBottom: 1; radiusTop: 0.1"
       ></a-entity>
-      <a-plane
+      <a-entity geometry="primitive: cone; radiusTop: 0.1" position="-0.01335 1.28314 -4.12458"></a-entity>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4" material="color: #063346"></a-plane>
         position="0 0 -4"
         rotation="-90 0 0"
         width="4"
