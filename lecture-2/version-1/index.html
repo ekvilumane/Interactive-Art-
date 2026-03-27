@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <!-- Camera -->
+      <a-camera position="0 2 6"></a-camera>
+
+      Ground
+      <a-plane
+        position="0 0 -4"
+        rotation="-90 0 0"
+        width="10"
+        height="10"
+        color="#00ff91"
+      >
+      </a-plane>
+      <!-- 
+      Original objects -->
+      <a-box position="-2 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
+      <a-cylinder
+        position="2 0.75 -3"
+        radius="0.5"
+        height="1.5"
+        color="#FFC65D"
+      ></a-cylinder>
+
+      <!-- WARM-UP 1: Rising Sun (linear) -->
+      <a-sphere
+        position="-2 -5 -10"
+        radius="1"
+        color="#FFD166"
+        animation="property: position; from: -2 -5 -10; to: -2 6 -10; dur: 3000; easing: linear"
+      >
+      </a-sphere>
+
+      <!-- WARM-UP 1 (variant): Rising Sun (easeOutQuad) -->
+      <a-sphere
+        position="2 -5 -10"
+        radius="1"
+        color="#a35c9d"
+        animation="property: position; from: 4 -5 -10; to: 2 6 -10; dur: 4000; easing: easeOutQuad"
+      >
+      </a-sphere>
+
+      <!-- WARM-UP 2: Pulsing White Dwarf -->
+      <a-sphere
+        position="0 2 -5"
+        radius="0.5"
+        color="#FFFFFF"
+        animation__scale="property: scale; to: 1.2 1.2 1.2; dir: alternate; loop: true; dur: 7000; easing: easeInOutCubic"
+        animation__color="property: components.material.material.color; type: color; to: #AAAAFF; dir: alternate; loop: true; dur: 800; easing: easeInOutCubic"
+      >
+      </a-sphere>
+
+      <!-- Sky -->
+      <a-sky
+        color="#87CEEB"
+        animation="property: components.material.material.color; 
+             type: color; 
+             to: #0a0a23; 
+             dur: 8000; 
+             dir: alternate; 
+             loop: true; 
+             easing: easeInOutQuad"
+      >
+      </a-sky
+    ></a-scene>
+  </body>
+</html>
