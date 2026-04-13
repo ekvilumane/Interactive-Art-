@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene fog="type: exponential; color: #d8f3dc; density: 0.05">
+      <a-camera position="0 1.6 5"></a-camera>
+
+      <a-light type="ambient" color="#b7e4c7" intensity="0.8"></a-light>
+      <a-light
+        type="directional"
+        position="1 4 2"
+        color="#86C6E3"
+        intensity="0.7"
+      ></a-light>
+
+      <a-entity
+        environment="
+          preset: forest;
+          seed: 164;
+
+          dressingAmount: 700;
+          dressingColor: #95d5b2;
+
+        
+          skyColor: #624FD1;
+          horizonColor: #d8f3dc;
+
+       
+          ground: noise;
+          groundYScale: 2.5;
+          groundColor: #18664B;
+          groundColor2: #2D4D3F;
+
+   
+          fog: 0.9;
+        "
+      >
+      </a-entity>
+
+      <a-sphere
+        position="0 0.3 -3"
+        radius="1.5"
+        scale="1 0.4 1"
+        color="#74c69d"
+        opacity="0.9"
+      >
+      </a-sphere>
+    </a-scene>
+  </body>
+</html>
