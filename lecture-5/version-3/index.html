@@ -1,0 +1,85 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Rock Steps Teleport</title>
+
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene
+      cursor="rayOrigin: mouse"
+      raycaster="objects: .clickable"
+      fog="type: exponential; color: #1c2228; density: 0.03"
+    >
+      <!-- ASSETS -->
+      <a-assets>
+        <a-asset-item
+          id="rocks"
+          src="portsmouth_coast_rocks__steps_photogrammetry.glb"
+        ></a-asset-item>
+      </a-assets>
+
+      <!-- CAMERA (start on top) -->
+      <a-entity
+        id="cameraRig"
+        position="0 6 5"
+        cursor-teleport="
+      cameraRig: #cameraRig;
+      cameraHead: #head;
+      collisionEntities: .nav-mesh;
+      transitionSpeed: 0.008
+    "
+      >
+        <a-entity id="head" camera look-controls position="0 1.6 0"></a-entity>
+      </a-entity>
+
+      <!-- LIGHT -->
+      <a-light type="ambient" intensity="0.5"></a-light>
+      <a-light type="directional" intensity="0.9" position="5 10 5"></a-light>
+
+      <!-- SKY -->
+      <a-sky color="#2a3440"></a-sky>
+
+      <!-- YOUR MODEL -->
+      <a-entity gltf-model="#rocks" position="0 0 0" scale="2 2 2"> </a-entity>
+
+      <!-- NAVIGATION LEVELS (INVISIBLE) -->
+
+      <!-- TOP -->
+      <a-plane
+        class="nav-mesh clickable"
+        rotation="-90 0 0"
+        width="4"
+        height="4"
+        position="0 6 0"
+        material="opacity: 0; transparent: true"
+      >
+      </a-plane>
+
+      <!-- MIDDLE -->
+      <a-plane
+        class="nav-mesh clickable"
+        rotation="-90 0 0"
+        width="4"
+        height="4"
+        position="0 3 0"
+        material="opacity: 0; transparent: true"
+      >
+      </a-plane>
+
+      <!-- BOTTOM -->
+      <a-plane
+        class="nav-mesh clickable"
+        rotation="-90 0 0"
+        width="6"
+        height="6"
+        position="0 0 0"
+        material="opacity: 0; transparent: true"
+      >
+      </a-plane>
+    </a-scene>
+  </body>
+</html>

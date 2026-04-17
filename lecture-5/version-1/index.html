@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Park Scene - Cinematic</title>
+
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene
+      cursor="rayOrigin: mouse"
+      raycaster="objects: .clickable"
+      fog="type: exponential; color: #2c3e50; density: 0.03"
+    >
+      <!-- CAMERA -->
+      <a-entity
+        id="cameraRig"
+        cursor-teleport="cameraRig: #cameraRig; cameraHead: #head; collisionEntities: .nav-mesh; transitionSpeed: 0.02"
+      >
+        <a-entity id="head" camera look-controls position="0 1.7 5"></a-entity>
+      </a-entity>
+
+      <!-- LIGHT (warm sunset) -->
+      <a-light type="ambient" intensity="0.4" color="#ffccaa"></a-light>
+      <a-light
+        type="directional"
+        intensity="0.9"
+        position="-5 8 5"
+        color="#ffd1a3"
+      ></a-light>
+
+      <!-- SKY (gradient-like tone) -->
+      <a-sky color="#2f3e56"></a-sky>
+
+      <!-- GRASS -->
+      <a-plane rotation="-90 0 0" width="60" height="60" color="#264d36">
+      </a-plane>
+
+      <!-- PATH (ONLY clickable) -->
+      <a-plane
+        class="nav-mesh clickable"
+        rotation="-90 0 0"
+        width="2.5"
+        height="40"
+        position="0 0.02 -15"
+        material="color: #666; roughness: 1"
+      >
+      </a-plane>
+
+      <!-- TREES (layered, not random blobs) -->
+      <a-entity position="-4 0 -8">
+        <a-cylinder height="2" radius="0.2" color="#3b2f2f"></a-cylinder>
+        <a-cone
+          position="0 2.5 0"
+          radius-bottom="1.2"
+          height="2.5"
+          color="#2f7d57"
+        ></a-cone>
+      </a-entity>
+
+      <a-entity position="4 0 -14">
+        <a-cylinder height="2" radius="0.2" color="#3b2f2f"></a-cylinder>
+        <a-cone
+          position="0 2.5 0"
+          radius-bottom="1.2"
+          height="2.5"
+          color="#2f7d57"
+        ></a-cone>
+      </a-entity>
+
+      <!-- LAMPS (this is where it stops looking like Paint) -->
+      <a-entity position="-1 0 -6">
+        <a-cylinder height="3" radius="0.05" color="#222"></a-cylinder>
+        <a-sphere
+          position="0 3 0"
+          radius="0.2"
+          color="#fff2cc"
+          emissive="#ffdd99"
+        ></a-sphere>
+        <a-light
+          type="point"
+          intensity="0.8"
+          distance="6"
+          color="#ffdca8"
+          position="0 3 0"
+        ></a-light>
+      </a-entity>
+
+      <a-entity position="1 0 -12">
+        <a-cylinder height="3" radius="0.05" color="#222"></a-cylinder>
+        <a-sphere
+          position="0 3 0"
+          radius="0.2"
+          color="#fff2cc"
+          emissive="#ffdd99"
+        ></a-sphere>
+        <a-light
+          type="point"
+          intensity="0.8"
+          distance="6"
+          color="#ffdca8"
+          position="0 3 0"
+        ></a-light>
+      </a-entity>
+
+      <!-- BENCH -->
+      <a-box
+        position="1.5 0.3 -10"
+        width="2"
+        height="0.3"
+        depth="0.5"
+        color="#6b4f3b"
+      ></a-box>
+    </a-scene>
+  </body>
+</html>
