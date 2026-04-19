@@ -1,11 +1,14 @@
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body,
-html {
+html,
+body {
   height: 100%;
-  background: rgb(76, 98, 122);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #4c627a, #2f3e50);
 }
 
 body {
@@ -13,21 +16,53 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  text-align: center;
 }
 
+/* Заголовки */
+h1 {
+  color: white;
+  font-weight: 600;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+h2 {
+  color: white;
+  font-weight: 300;
+  margin-bottom: 30px;
+}
+
+/* Список */
 ul {
   display: flex;
-  gap: 1em;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  list-style-type: none;
+  gap: 15px;
+  list-style: none;
 }
 
+/* Кнопки */
 li {
-  padding: 15px;
   background: white;
-  font-size: large;
-  font-weight: bold;
-  text-transform: uppercase;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+li:hover {
+  transform: translateY(-3px);
+}
+
+/* Ссылки */
+a {
+  display: block;
+  padding: 12px 20px;
+  text-decoration: none;
+  color: #2f3e50;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+a:hover {
+  background: #2f3e50;
+  color: white;
 }
