@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Elevator Shaft - Clean Version</title>
+    <title>Light Church - Fixed Interior</title>
 
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
@@ -15,7 +15,7 @@
 
   <body>
     <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
-      <!-- CAMERA -->
+      <!-- CAMERA (внутри сцены) -->
       <a-entity
         id="cameraRig"
         cursor-teleport="
@@ -25,83 +25,75 @@
           transitionSpeed: 0.01
         "
       >
-        <a-entity id="head" camera look-controls position="0 1.6 5"></a-entity>
+        <a-entity id="head" camera look-controls position="0 1.6 2"></a-entity>
       </a-entity>
 
-      <!-- ENVIRONMENT -->
+      <!-- MODEL (СБРОШЕНА В НОЛЬ) -->
       <a-assets>
-        <a-asset-item id="keep" src="fantasy_sea_keep.glb"></a-asset-item>
+        <a-asset-item id="church" src="iglesia_de_la_luz_osaka_japon.glb">
+        </a-asset-item>
       </a-assets>
 
-      <a-entity gltf-model="#keep" position="0 0 -10" scale="2 2 2"></a-entity>
+      <a-entity gltf-model="#church" position="0 0 0" scale="2 2 2"> </a-entity>
 
-      <!-- GROUND FLOOR -->
+      <!-- ПОЛ ВНУТРИ -->
       <a-plane
         class="nav-mesh clickable"
         rotation="-90 0 0"
-        width="12"
-        height="12"
-        position="0 0 -10"
-        color="#2f3e46"
+        width="8"
+        height="16"
+        position="0 0 0"
+        color="#2a2a2a"
       >
       </a-plane>
 
-      <!-- ROOF -->
+      <!-- ВЕРХНИЙ УРОВЕНЬ -->
       <a-plane
         rotation="-90 0 0"
-        width="10"
-        height="10"
-        position="0 10 -10"
-        color="#3a4a52"
+        width="6"
+        height="6"
+        position="0 5 0"
+        color="#3a3a3a"
       >
       </a-plane>
 
-      <!-- UP BUTTON (styled, but still valid "button") -->
+      <!-- UP -->
       <a-cylinder
         class="clickable"
-        position="2 0.5 -8"
-        radius="0.7"
+        position="0 0.2 -2"
+        radius="0.5"
         height="0.2"
         color="#4CAF50"
-        go-to="position: 0 10 -10"
+        go-to="position: 0 5 0"
       >
-        <!-- REQUIRED nested label -->
-        <a-text value="UP" align="center" position="0 0.5 0" color="white">
-        </a-text>
+        <a-text
+          value="UP"
+          align="center"
+          position="0 0.6 0"
+          color="white"
+        ></a-text>
       </a-cylinder>
 
-      <!-- DOWN BUTTON -->
+      <!-- DOWN -->
       <a-cylinder
         class="clickable"
-        position="0 10.5 -10"
-        radius="0.7"
+        position="0 5.2 0"
+        radius="0.5"
         height="0.2"
         color="#e74c3c"
-        go-to="position: 0 1.6 5"
+        go-to="position: 0 1.6 2"
       >
-        <!-- REQUIRED nested label -->
-        <a-text value="DOWN" align="center" position="0 0.5 0" color="white">
-        </a-text>
+        <a-text
+          value="DOWN"
+          align="center"
+          position="0 0.6 0"
+          color="white"
+        ></a-text>
       </a-cylinder>
 
       <!-- LIGHT -->
-      <a-light type="ambient" intensity="0.3" color="#5c6fa3"></a-light>
-
-      <a-light
-        type="directional"
-        intensity="1.2"
-        position="-5 6 3"
-        color="#ffb27a"
-      >
-      </a-light>
-
-      <a-light
-        type="directional"
-        intensity="0.4"
-        position="5 3 -2"
-        color="#6f86ff"
-      >
-      </a-light>
+      <a-light type="ambient" intensity="0.3"></a-light>
+      <a-light type="directional" position="2 5 3" intensity="1"></a-light>
     </a-scene>
   </body>
 </html>
