@@ -2,52 +2,59 @@
   <head>
     <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+
+    <script>
+      AFRAME.registerComponent("float-motion", {
+        tick: function (time) {
+          const t = time * 0.001;
+          this.el.object3D.position.y = 2 + Math.sin(t) * 0.5;
+          this.el.object3D.rotation.y += 0.003;
+        },
+      });
+    </script>
   </head>
 
   <body>
-    <a-scene fog="type: exponential; color: #d8f3dc; density: 0.05">
+    <a-scene>
+      <!-- CAMERA -->
       <a-camera position="0 1.6 5"></a-camera>
 
-      <a-light type="ambient" color="#b7e4c7" intensity="0.8"></a-light>
-      <a-light
-        type="directional"
-        position="1 4 2"
-        color="#86C6E3"
-        intensity="0.7"
-      ></a-light>
-
+      <!-- FOREST -->
       <a-entity
         environment="
           preset: forest;
-          seed: 164;
-
-          dressingAmount: 700;
-          dressingColor: #95d5b2;
-
-        
-          skyColor: #624FD1;
-          horizonColor: #d8f3dc;
-
-       
-          ground: noise;
-          groundYScale: 2.5;
-          groundColor: #18664B;
-          groundColor2: #2D4D3F;
-
-   
-          fog: 0.9;
+          skyType: none;
+          dressingAmount: 300;
+          dressingColor: #1b4332;
+          ground: hills;
+          groundColor: #0b1d26;
+          groundColor2: #1b4332;
+          fog: 0.3;
         "
       >
       </a-entity>
 
-      <a-sphere
-        position="0 0.3 -3"
-        radius="1.5"
-        scale="1 0.4 1"
-        color="#74c69d"
-        opacity="0.9"
-      >
-      </a-sphere>
-    </a-scene>
-  </body>
-</html>
+      <!-- LIGHT -->
+      <a-light type="ambient" intensity="0.7"></a-light>
+      <a-light type="directional" position="2 5 1" intensity="0.6"></a-light>
+
+      <!-- OBJECT -->
+      <a-entity position="0 2 -6" float-motion>
+        <a-sphere
+          radius="0.5"
+          material="color: #90e0ef; emissive: #48cae4; emissiveIntensity: 1"
+        >
+        </a-sphere>
+
+        <a-torus
+          radius="1"
+          radius-tubular="0.02"
+          rotation="90 0 0"
+          animation="property: rotation; to: 90 360 0; loop: true; dur: 10000"
+          material="color: #caf0f8; opacity: 0.7"
+        >
+        </a-torus>
+      </a-entity>
+
+      <!-- 🔥 SKY В САМОМ КОНЦЕ -->
+      <a-sky src="casey-horner-fsJB3KT2rj8-unsplash.jpg" material="shader: flat" radius="500"></a-sky>
