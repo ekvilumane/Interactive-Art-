@@ -2,117 +2,138 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Park Scene - Cinematic</title>
+    <title>Cinematic Park - Teleport</title>
 
     <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.4.0/dist/aframe-environment-component.min.js"></script>
   </head>
 
   <body>
-    <a-scene
-      cursor="rayOrigin: mouse"
-      raycaster="objects: .clickable"
-      fog="type: exponential; color: #2c3e50; density: 0.03"
-    >
-      <!-- CAMERA -->
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+      <!-- CAMERA RIG (with smooth transition) -->
       <a-entity
         id="cameraRig"
-        cursor-teleport="cameraRig: #cameraRig; cameraHead: #head; collisionEntities: .nav-mesh; transitionSpeed: 0.02"
+        cursor-teleport="
+          cameraRig: #cameraRig;
+          cameraHead: #head;
+          collisionEntities: .nav-mesh;
+          transitionSpeed: 0.015
+        "
       >
         <a-entity id="head" camera look-controls position="0 1.7 5"></a-entity>
       </a-entity>
 
-      <!-- LIGHT (warm sunset) -->
-      <a-light type="ambient" intensity="0.4" color="#ffccaa"></a-light>
+      <!-- CINEMATIC ENVIRONMENT -->
+      <a-entity
+        environment="
+          preset: forest;
+          dressing: none;
+          ground: hills;
+          groundTexture: walkernoise;
+          groundColor: #1c1f2b;
+          groundColor2: #2a2f3d;
+
+          skyType: atmosphere;
+          skyColor: #0c1020;
+          horizonColor: #ff9a6a;
+
+          lighting: none;
+          fog: 0.65;
+        "
+      >
+      </a-entity>
+
+      <!-- LIGHTING (this is where cinema actually happens) -->
+      <!-- soft global tone -->
+      <a-light type="ambient" intensity="0.25" color="#5a6fb0"></a-light>
+
+      <!-- warm sunset key light -->
       <a-light
         type="directional"
-        intensity="0.9"
-        position="-5 8 5"
-        color="#ffd1a3"
-      ></a-light>
+        intensity="1.3"
+        position="-3 6 2"
+        color="#ffb07a"
+      >
+      </a-light>
 
-      <!-- SKY (gradient-like tone) -->
-      <a-sky color="#2f3e56"></a-sky>
+      <!-- cool contrast fill -->
+      <a-light
+        type="directional"
+        intensity="0.5"
+        position="4 3 -3"
+        color="#6a7cff"
+      >
+      </a-light>
 
-      <!-- GRASS -->
-      <a-plane rotation="-90 0 0" width="60" height="60" color="#264d36">
-      </a-plane>
-
-      <!-- PATH (ONLY clickable) -->
+      <!-- SIDEWALK (ONLY WALKABLE AREA) -->
       <a-plane
         class="nav-mesh clickable"
         rotation="-90 0 0"
-        width="2.5"
+        width="3"
         height="40"
-        position="0 0.02 -15"
-        material="color: #666; roughness: 1"
+        position="0 0.05 -15"
+        material="color: #1a1a1a; roughness: 1"
       >
       </a-plane>
 
-      <!-- TREES (layered, not random blobs) -->
-      <a-entity position="-4 0 -8">
-        <a-cylinder height="2" radius="0.2" color="#3b2f2f"></a-cylinder>
-        <a-cone
-          position="0 2.5 0"
-          radius-bottom="1.2"
-          height="2.5"
-          color="#2f7d57"
-        ></a-cone>
-      </a-entity>
+      <!-- NON-WALKABLE GROUND (visual only) -->
+      <a-plane
+        rotation="-90 0 0"
+        width="60"
+        height="60"
+        position="0 0 -15"
+        material="color: #10131c"
+      >
+      </a-plane>
 
-      <a-entity position="4 0 -14">
-        <a-cylinder height="2" radius="0.2" color="#3b2f2f"></a-cylinder>
-        <a-cone
-          position="0 2.5 0"
-          radius-bottom="1.2"
-          height="2.5"
-          color="#2f7d57"
-        ></a-cone>
-      </a-entity>
+      <!-- REAL TREES (not procedural embarrassment) -->
+      <a-assets>
+        <a-asset-item
+          id="tree"
+          src="https://cdn.aframe.io/test-models/models/tree/scene.gltf"
+        >
+        </a-asset-item>
+      </a-assets>
 
-      <!-- LAMPS (this is where it stops looking like Paint) -->
-      <a-entity position="-1 0 -6">
-        <a-cylinder height="3" radius="0.05" color="#222"></a-cylinder>
+      <a-entity
+        gltf-model="#tree"
+        position="-6 0 -10"
+        scale="2.5 2.5 2.5"
+      ></a-entity>
+      <a-entity gltf-model="#tree" position="5 0 -18" scale="3 3 3"></a-entity>
+      <a-entity
+        gltf-model="#tree"
+        position="-8 0 -22"
+        scale="2.2 2.2 2.2"
+      ></a-entity>
+      <a-entity
+        gltf-model="#tree"
+        position="7 0 -26"
+        scale="2.8 2.8 2.8"
+      ></a-entity>
+
+      <!-- ATMOSPHERIC LIGHT SOURCE (visual anchor) -->
+      <a-entity position="0 0 -12">
+        <a-cylinder height="3" radius="0.05" color="#111"></a-cylinder>
+
         <a-sphere
           position="0 3 0"
-          radius="0.2"
-          color="#fff2cc"
-          emissive="#ffdd99"
-        ></a-sphere>
+          radius="0.3"
+          color="#ffe3b0"
+          emissive="#ffcc88"
+        >
+        </a-sphere>
+
         <a-light
           type="point"
-          intensity="0.8"
-          distance="6"
+          intensity="1.8"
+          distance="12"
           color="#ffdca8"
           position="0 3 0"
-        ></a-light>
+        >
+        </a-light>
       </a-entity>
-
-      <a-entity position="1 0 -12">
-        <a-cylinder height="3" radius="0.05" color="#222"></a-cylinder>
-        <a-sphere
-          position="0 3 0"
-          radius="0.2"
-          color="#fff2cc"
-          emissive="#ffdd99"
-        ></a-sphere>
-        <a-light
-          type="point"
-          intensity="0.8"
-          distance="6"
-          color="#ffdca8"
-          position="0 3 0"
-        ></a-light>
-      </a-entity>
-
-      <!-- BENCH -->
-      <a-box
-        position="1.5 0.3 -10"
-        width="2"
-        height="0.3"
-        depth="0.5"
-        color="#6b4f3b"
-      ></a-box>
     </a-scene>
   </body>
 </html>
