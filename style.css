@@ -19,7 +19,6 @@ body {
   text-align: center;
 }
 
-/* Заголовки */
 h1 {
   color: white;
   font-weight: 600;
@@ -33,14 +32,12 @@ h2 {
   margin-bottom: 30px;
 }
 
-/* Список */
 ul {
   display: flex;
   gap: 15px;
   list-style: none;
 }
 
-/* Кнопки */
 li {
   background: white;
   border-radius: 8px;
@@ -52,7 +49,6 @@ li:hover {
   transform: translateY(-3px);
 }
 
-/* Ссылки */
 a {
   display: block;
   padding: 12px 20px;
