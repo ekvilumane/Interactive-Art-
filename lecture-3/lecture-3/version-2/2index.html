@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene fog="type: exponential; color: #3a86a8; density: 0.07">
+      <!-- Camera -->
+      <a-camera position="0 1.6 6"></a-camera>
+
+      <!-- Static environment -->
+      <a-entity
+        environment="
+          preset: default;
+          skyType: gradient;
+          skyColor: #023e8a;
+          horizonColor: #3a86a8;
+
+          ground: hills;
+          groundYScale: 4;
+          groundTexture: walkernoise;
+
+          groundColor: #2a6f97;
+          groundColor2: #61a5c2;
+
+          dressing: cubes;
+          dressingAmount: 150;
+          dressingScale: 2 6 2;
+          dressingVariance: 3 5 3;
+          dressingColor: #89c2d9;
+
+          fog: 0.95;
+        "
+      >
+      </a-entity>
+
+      <!-- Water forms -->
+      <a-sphere
+        position="0 0.5 -4"
+        radius="3"
+        scale="1 0.3 1"
+        color="#2a6f97"
+      ></a-sphere>
+      <a-sphere
+        position="3 0.4 -6"
+        radius="2"
+        scale="1 0.25 1"
+        color="#468faf"
+      ></a-sphere>
+      <a-sphere
+        position="-3 0.3 -5"
+        radius="2.5"
+        scale="1 0.2 1"
+        color="#61a5c2"
+      ></a-sphere>
+
+      <!-- Surface haze -->
+      <a-plane
+        position="0 2 -3"
+        rotation="-90 0 0"
+        width="20"
+        height="20"
+        color="#61a5c2"
+        opacity="0.12"
+      >
+      </a-plane>
+
+      <!-- Video asset -->
+      <a-assets>
+        <video
+          id="videoTexture"
+          src="Thalassophobia.mp4"
+          autoplay
+          loop
+          muted
+          playsinline
+          webkit-playsinline
+          crossorigin="anonymous"
+        ></video>
+      </a-assets>
+
+      <!-- Screen frame -->
+      <a-box
+        position="-2 3.1 -3"
+        width="2.5"
+        height="1.5"
+        depth="0.15"
+        color="#1b3a4b"
+      >
+      </a-box>
+
+      <!-- Video surface -->
+      <a-plane
+        position="-2 3.08 -2.9"
+        width="2.3"
+        height="1.3"
+        src="#videoTexture"
+      >
+      </a-plane>
+
+      <!-- Emissive sphere -->
+      <a-sphere
+        position="2 3.5 -3"
+        radius="1.2"
+        src="https://images.unsplash.com/photo-1446776811953-b23d57bd21aa"
+        material="emissive: #90e0ef; emissiveIntensity: 0.3"
+      >
+      </a-sphere>
+
+      <!-- Floating particles -->
+      <a-sphere
+        position="0 1 -3"
+        radius="0.1"
+        color="#caf0f8"
+        opacity="0.5"
+        animation="property: position; to: 0 3 -3; loop: true; dur: 4000"
+      >
+      </a-sphere>
+
+      <a-sphere
+        position="1 1.2 -4"
+        radius="0.08"
+        color="#ade8f4"
+        opacity="0.4"
+        animation="property: position; to: 1 3.5 -4; loop: true; dur: 5000"
+      >
+      </a-sphere>
+
+      <!-- Lighting -->
+      <a-light type="ambient" color="#89c2d9" intensity="0.7"></a-light>
+
+      <a-light type="point" position="0 3 -3" color="#caf0f8" intensity="0.9">
+      </a-light>
+    </a-scene>
+  </body>
+</html>
