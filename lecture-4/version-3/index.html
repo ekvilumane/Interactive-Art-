@@ -1,0 +1,45 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.7.0/dist/aframe-extras.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="fish" src="fish.glb"></a-asset-item>
+        <a-asset-item id="tower" src="moon_tower.glb"></a-asset-item>
+      </a-assets>
+      <a-entity environment="preset: threetowers"></a-entity>
+
+      <a-gltf-model
+        src="moon_tower.glb"
+        position="0 0 -5"
+        scale="21 21 21"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 10000"
+      >
+      </a-gltf-model>
+
+      <a-entity
+        position="0 2 -5"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 12000"
+      >
+        <a-entity
+          position="5 0 0"
+          animation="property: position; to: 5 1.5 0; dir: alternate; dur: 3000; loop: true"
+        >
+          <a-entity
+            animation="property: rotation; to: 10 0 20; dir: alternate; dur: 2000; loop: true"
+          >
+            <a-gltf-model
+              src="fish.glb"
+              scale="5 5 5"
+              animation-mixer="timeScale: 0.6"
+            >
+            </a-gltf-model>
+          </a-entity>
+        </a-entity> </a-entity
+    ></a-scene>
+  </body>
+</html>

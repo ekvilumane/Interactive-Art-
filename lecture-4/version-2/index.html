@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.7.0/dist/aframe-extras.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="deer" src="deer_non-commercial.glb"></a-asset-item>
+      </a-assets>
+
+      <!-- Environment -->
+      <a-entity
+        environment="preset: goaland; skyType: gradient; groundColor: #3b2f2f"
+      >
+      </a-entity>
+
+      <a-light type="ambient" intensity="0.7"></a-light>
+      <a-light type="directional" intensity="0.8" position="2 6 3"></a-light>
+
+      <a-entity
+        position="-6 0 -6"
+        animation="property: position; to: 6 1 -12; dur: 9000; dir: alternate; loop: true"
+      >
+        <a-entity
+          animation="property: rotation; to: 0 90 0; dur: 9000; dir: alternate; loop: true"
+        >
+          <a-gltf-model
+            src="deer_non-commercial.glb"
+            scale="3 3 3"
+            animation-mixer="timeScale: 0.8"
+          >
+          </a-gltf-model>
+        </a-entity>
+      </a-entity>
+
+      <a-sphere
+        position="0 3 -6"
+        radius="0.7"
+        material="color: #00ffff; emissive: #00ffff; emissiveIntensity: 1.5"
+        animation__move="property: position; to: 0 6 -6; dur: 4000; dir: alternate; loop: true"
+        animation__color="property: material.color; 
+                    from: #00ffff; 
+                    to: #ff00ff; 
+                    dur: 2000; 
+                    dir: alternate; 
+                    loop: true"
+        animation__emissive="property: material.emissive; 
+                       from: #00ffff; 
+                       to: #ff00ff; 
+                       dur: 2000; 
+                       dir: alternate; 
+                       loop: true"
+        animation__scale="property: scale; 
+                    to: 0.5 0.5 0.5; 
+                    dur: 6000; 
+                    dir: alternate; 
+                    loop: true"
+      >
+      </a-sphere
+    ></a-scene>
+  </body>
+</html>

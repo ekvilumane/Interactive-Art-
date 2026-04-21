@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.5.x/dist/aframe-environment-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene>
+      <a-assets>
+        <a-asset-item id="low-poly_pigeon.glb" src="assets/low-poly_pigeon.glb">
+        </a-asset-item>
+      </a-assets>
+
+      <!-- Environment  -->
+      <a-entity
+        environment="preset: arches; lighting: distant; groundColor: #222"
+      >
+      </a-entity>
+
+      <a-light type="ambient" intensity="1"></a-light>
+      <a-light type="directional" intensity="1" position="1 5 2"></a-light>
+
+      <a-entity
+        position="-6 2 -2"
+        animation="property: position; to: 6 3 -12; dur: 8000; dir: alternate; loop: true"
+      >
+        <a-entity
+          animation="property: rotation; to: 10 360 0; dur: 10000; loop: true"
+        >
+          <a-gltf-model src="low-poly_pigeon.glb" scale="10 10 10">
+          </a-gltf-model>
+        </a-entity>
+      </a-entity>
+    </a-scene>
+  </body>
+</html>
