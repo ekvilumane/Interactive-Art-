@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>City Scene - Alive Night</title>
+
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+    <!-- Teleport -->
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+
+    <!-- go-to -->
+    <script src="js/go-to.js"></script>
+  </head>
+
+  <body>
+    <a-scene cursor="rayOrigin: mouse" raycaster="objects: .clickable">
+      <!-- CAMERA -->
+      <a-entity
+        id="cameraRig"
+        cursor-teleport="
+          cameraRig: #cameraRig;
+          cameraHead: #head;
+          collisionEntities: .nav-mesh;
+          transitionSpeed: 0.01
+        "
+      >
+        <a-entity id="head" camera look-controls position="0 2 4"></a-entity>
+      </a-entity>
+
+      <!-- MODEL -->
+      <a-assets>
+        <a-asset-item id="city" src="city.glb"></a-asset-item>
+      </a-assets>
+
+      <a-entity gltf-model="#city" position="0 0 0" scale="2 2 2"></a-entity>
+
+      <!-- GROUND -->
+      <a-plane
+        class="nav-mesh clickable"
+        rotation="-90 0 0"
+        width="10"
+        height="20"
+        position="0 0 0"
+        color="#111"
+      >
+      </a-plane>
+
+      <!-- TOP LEVEL -->
+      <a-plane
+        rotation="-90 0 0"
+        width="6"
+        height="6"
+        position="0 5 0"
+        color="#222"
+      >
+      </a-plane>
+
+      <!-- UP BUTTON (GLOW) -->
+      <a-cylinder
+        class="clickable"
+        position="0 0.2 -2"
+        radius="0.6"
+        height="0.2"
+        material="color: #4CAF50; emissive: #4CAF50; emissiveIntensity: 0.8"
+        go-to="position: 0 5 0"
+      >
+        <a-text
+          value="UP"
+          align="center"
+          position="0 0.7 0"
+          color="#ffffff"
+        ></a-text>
+      </a-cylinder>
+
+      <!-- DOWN BUTTON (GLOW) -->
+      <a-cylinder
+        class="clickable"
+        position="0 5.2 0"
+        radius="0.6"
+        height="0.2"
+        material="color: #e74c3c; emissive: #e74c3c; emissiveIntensity: 0.8"
+        go-to="position: 0 2 4"
+      >
+        <a-text
+          value="DOWN"
+          align="center"
+          position="0 0.7 0"
+          color="#ffffff"
+        ></a-text>
+      </a-cylinder>
+
+      <!-- NEON LIGHT OBJECTS (THIS IS WHAT MAKES IT ALIVE) -->
+      <a-sphere
+        position="3 2 -5"
+        radius="0.5"
+        material="color: #00ffff; emissive: #00ffff; emissiveIntensity: 1.5"
+      >
+      </a-sphere>
+
+      <a-sphere
+        position="-4 3 -8"
+        radius="0.6"
+        material="color: #ff00ff; emissive: #ff00ff; emissiveIntensity: 1.5"
+      >
+      </a-sphere>
+
+      <a-sphere
+        position="2 4 -10"
+        radius="0.4"
+        material="color: #00ff88; emissive: #00ff88; emissiveIntensity: 1.2"
+      >
+      </a-sphere>
+
+      <!-- SOFT POINT LIGHTS -->
+      <a-light
+        type="point"
+        position="3 2 -5"
+        intensity="1"
+        color="#00ffff"
+      ></a-light>
+      <a-light
+        type="point"
+        position="-4 3 -8"
+        intensity="1"
+        color="#ff00ff"
+      ></a-light>
+
+      <!-- NIGHT SKY -->
+      <a-sky color="#02030a"></a-sky>
+
+      <!-- STARS -->
+      <a-entity>
+        <a-sphere
+          radius="200"
+          material="shader: flat; side: back; color: #000"
+        ></a-sphere>
+
+        <a-sphere
+          radius="0.15"
+          position="50 80 -100"
+          color="#ffffff"
+        ></a-sphere>
+        <a-sphere
+          radius="0.12"
+          position="-70 90 -120"
+          color="#ffffff"
+        ></a-sphere>
+        <a-sphere
+          radius="0.18"
+          position="80 100 -140"
+          color="#ffffff"
+        ></a-sphere>
+      </a-entity>
+
+      <!-- LIGHTING -->
+      <a-light type="ambient" intensity="0.2" color="#8899ff"></a-light>
+
+      <a-light
+        type="directional"
+        intensity="0.5"
+        position="5 10 5"
+        color="#aaccff"
+      >
+      </a-light>
+    </a-scene>
+  </body>
+</html>
