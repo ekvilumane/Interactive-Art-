@@ -1,0 +1,161 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>EcoMind VR Exhibition</title>
+
+    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+  </head>
+
+  <body>
+    <a-scene
+      background="color: #000"
+      fog="type: exponential; color: #0a0a0a; density: 0.012"
+      cursor="rayOrigin: mouse"
+      raycaster="objects: .clickable"
+    >
+      <!-- ASSETS -->
+      <a-assets>
+        <video
+          id="mossVideo"
+          src="mossroom2.mp4"
+          loop
+          crossorigin="anonymous"
+          playsinline
+          webkit-playsinline
+        ></video>
+
+        <audio
+          id="ambientMusic"
+          src="Moss Garden (2017 Remaster).mp3"
+          preload="auto"
+        ></audio>
+      </a-assets>
+
+      <!-- CAMERA RIG -->
+      <a-entity
+        id="cameraRig"
+        position="0 0 2"
+        cursor-teleport="
+      cameraRig: #cameraRig;
+      cameraHead: #head;
+      collisionEntities: .collision;
+      transitionSpeed: 0.012"
+      >
+        <a-entity
+          id="head"
+          camera
+          position="0 1.6 0"
+          look-controls="reverseMouseDrag: true"
+        >
+        </a-entity>
+
+        <a-entity
+          laser-controls="hand: left"
+          raycaster="objects: .clickable"
+          line="color: white; opacity: 0.35"
+          blink-controls="
+        cameraRig: #cameraRig;
+        teleportOrigin: #head;
+        collisionEntities: .collision"
+        >
+        </a-entity>
+
+        <a-entity
+          laser-controls="hand: right"
+          raycaster="objects: .clickable"
+          line="color: white; opacity: 0.35"
+          blink-controls="
+        cameraRig: #cameraRig;
+        teleportOrigin: #head;
+        collisionEntities: .collision"
+        >
+        </a-entity>
+      </a-entity>
+
+      <!-- VIDEO SPHERE -->
+      <a-videosphere
+        src="#mossVideo"
+        radius="120"
+        position="0 -14 0"
+        rotation="0 -90 0"
+      >
+      </a-videosphere>
+
+      <!-- INVISIBLE NAV FLOOR -->
+      <a-circle
+        class="collision clickable"
+        rotation="-90 0 0"
+        radius="14"
+        material="opacity: 0; transparent: true"
+      >
+      </a-circle>
+
+      <!-- SPATIALLY DISTRIBUTED QUOTES -->
+
+      <a-text
+        value="The room began to breathe without me."
+        position="0 3.8 -9"
+        width="7"
+        align="center"
+        color="#F5F3EE"
+      >
+      </a-text>
+
+      <a-text
+        value="Something outside kept calling through the window."
+        position="8 2.6 -3"
+        rotation="0 -65 0"
+        width="5"
+        color="#DDE6D5"
+      >
+      </a-text>
+
+      <a-text
+        value="The walls softened first."
+        position="-8 2.4 -2"
+        rotation="0 65 0"
+        width="4.5"
+        color="#D9D2C5"
+      >
+      </a-text>
+
+      <a-text
+        value="I watched the floor remember it was once alive."
+        position="0 1.5 10"
+        rotation="0 180 0"
+        width="6"
+        align="center"
+        color="#EFE6D4"
+      >
+      </a-text>
+
+      <!-- AUDIO -->
+      <a-entity
+        sound="
+      src: #ambientMusic;
+      autoplay: false;
+      loop: true;
+      positional: false;
+      volume: 0.55"
+      >
+      </a-entity>
+    </a-scene>
+
+    <script>
+      window.addEventListener(
+        "click",
+        () => {
+          const video = document.querySelector("#mossVideo");
+          const audio = document.querySelector("#ambientMusic");
+
+          if (video.paused) video.play();
+          if (audio.paused) audio.play();
+        },
+        { once: true },
+      );
+    </script>
+  </body>
+</html>
