@@ -1,21 +1,301 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h1>Elizabete Klara Vilumane</h1>
-    <h2>Lectures exercises:</h2>
-    <ul>
-      <li><a href="lecture-1/index.html">Lecture 1</a></li>
-      <li><a href="lecture-2/index.html">Lecture 2</a></li>
-      <li><a href="lecture-3/index.html">Lecture 3</a></li>
-      <li><a href="lecture-4/index.html">Lecture 4</a></li>
-      <li><a href="lecture-5/index.html">Lecture 5</a></li>
-      <li><a href="./final/">Final Project</a></li>
-    </ul>
-  </body>
+<head>
+  <meta charset="utf-8" />
+  <title>EcoMind VR - Elizabete Klara Vilumane</title>
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+  <!-- Animation Mixer for GLTF models -->
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@7.7.0/dist/aframe-extras.min.js"></script>
+  <!-- Teleport (VR) -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-blink-controls/dist/aframe-blink-controls.min.js"></script>
+  <!-- Cursor Teleport (Desktop) -->
+  <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-cursor-teleport@1.6.0/dist/aframe-cursor-teleport-component.min.js"></script>
+  <style>
+    body { margin: 0; overflow: hidden; background: black; }
+    canvas { outline: none; }
+  </style>
+</head>
+<body>
+  <a-scene
+    cursor="rayOrigin: mouse"
+    raycaster="objects: .collision,.clickable"
+    renderer="antialias: true;"
+    vr-mode-ui="enabled: true"
+    loading-screen="dotsColor: #88aaff; backgroundColor: #020611"
+    fog="type: exponential; color: #0a1420; density: 0.001"
+  >
+    <!-- ASSETS: all videos and audio -->
+    <a-assets timeout="30000">
+      <video id="mossVideo" src="./Vr21.mp4" loop muted playsinline webkit-playsinline preload="auto"></video>
+      <video id="floorVideo" src="1.mp4" loop muted playsinline webkit-playsinline preload="auto"></video>
+      <video id="ceilingVideo" src="3.mp4" loop muted playsinline webkit-playsinline preload="auto"></video>
+      <video id="skyVideo" src="5.mp4" loop muted playsinline webkit-playsinline preload="auto"></video>
+      <video id="mirrorVideo" src="4.mp4" loop muted playsinline webkit-playsinline preload="auto"></video>
+      <audio id="ambientMusic" src="Moss Garden (2017 Remaster).mp3" preload="auto"></audio>
+    </a-assets>
+
+    <!-- 3D Model Assets -->
+    <a-asset-item id="birdModel" src="lowpoly_humming-bird_animated.glb"></a-asset-item>
+    <a-asset-item id="butterflyModel" src="Monarch Butterfly.glb"></a-asset-item>
+
+    <!-- SKY: giant sphere (works with regular videos, not only 360°) -->
+    <a-videosphere id="videoSky" src="#skyVideo" rotation="0 -90 0"></a-videosphere>
+
+    <!-- VIDEO CYLINDER (walls) – Vr21.mp4 -->
+    <a-cylinder
+      src="#mossVideo"
+      radius="17" height="17"
+      segments-radial="64" open-ended="true"
+      scale="-1 1 1"
+      rotation="0 -90 0"
+      position="33.3266 8.725 33.17339"
+      material="shader: flat; side: double"
+      geometry="thetaLength: 240; thetaStart: 60"
+    ></a-cylinder>
+
+    <!-- HUMMINGBIRD (animated GLTF) - outside the cylinder -->
+    <a-entity
+      gltf-model="#birdModel"
+      position="55 8 20"
+      scale="0.5 0.5 0.5"
+      rotation="0 -90 0"
+      animation="
+        property: position;
+        from: 55 8 20;
+        to: 42 11 42;
+        dur: 6000;
+        dir: alternate;
+        loop: true"
+    ></a-entity>
+
+    <!-- MONARCH BUTTERFLY (animated GLTF) - outside the cylinder -->
+    <a-entity
+      gltf-model="#butterflyModel"
+      position="31.43517 7.03578 63.14921"
+      rotation="0 45 0"
+      animation="
+        property: position;
+        from: 10 7 30;
+        to: 20 11 40;
+        dur: 9000;
+        dir: alternate;
+        loop: true"
+    ></a-entity>
+
+    <!-- WALKABLE FLOOR FOR TELEPORTATION (1.mp4) – inside the cylinder -->
+    <a-plane
+      class="collision"
+      src="#floorVideo"
+      rotation="-90 0 0"
+      width="34"
+      height="34"
+      position="33.3266 0.52 33.17339"
+      material="shader: flat; side: double"
+    ></a-plane>
+
+    <!-- GLOBAL INVISIBLE FLOOR – to prevent falling through the world -->
+    <a-plane
+      class="collision"
+      rotation="-90 0 0"
+      width="500"
+      height="500"
+      position="0 -0.5 0"
+      material="opacity: 0; transparent: true"
+    ></a-plane>
+
+    <!-- SPHERE WITH VIDEO 3.mp4 – OUTSIDE THE CYLINDER -->
+    <a-sphere
+  radius="3"
+  position="-8.014 16.11009 33"
+  material="shader: flat; src: #ceilingVideo; side: double; transparent: true; opacity: 0.95"
+>
+  <a-animation
+    attribute="position"
+    dur="8000"
+    direction="alternate"
+    repeat="indefinite"
+    to="55 10 33"
+  ></a-animation>
+</a-sphere>
+      <a-animation
+        attribute="position"
+        dur="8000"
+        direction="alternate"
+        repeat="indefinite"
+        to="55 10 33"
+      ></a-animation>
+    </a-sphere>
+
+    <!-- RECTANGLE WITH VIDEO 4.mp4 – OUTSIDE THE CYLINDER -->
+    <a-plane
+      src="#mirrorVideo"
+      width="8"
+      height="17"
+      position="24.7457 9.58559 32.36735"
+      rotation="0 -87.68087730446014 0"
+      material="opacity: 0.6; shader: flat; side: double; transparent: true"
+      geometry="width: 30"
+      scale="1 1 17"
+    ></a-plane>
+
+    <!-- CAMERA RIG WITH TELEPORTATION + WASD / ARROW KEYS -->
+    <a-entity
+      id="cameraRig"
+      position="33.3266 1 33.17339"
+      cursor-teleport="
+        cameraRig: #cameraRig;
+        cameraHead: #head;
+        collisionEntities: .collision;
+        transitionSpeed: 0.01;
+      "
+    >
+      <!-- Head (camera) with WASD controls -->
+      <a-entity
+        id="head"
+        camera
+        position="0 1.6 0"
+        look-controls="reverseMouseDrag: true"
+        wasd-controls="acceleration: 30"
+      ></a-entity>
+
+      <!-- Left hand (VR) -->
+      <a-entity
+        laser-controls="hand: left"
+        raycaster="objects: .collision,.clickable"
+        line="color: red; opacity: 0.75"
+        blink-controls="
+          cameraRig: #cameraRig;
+          teleportOrigin: #head;
+          collisionEntities: .collision
+        "
+      ></a-entity>
+
+      <!-- Right hand (VR) -->
+      <a-entity
+        laser-controls="hand: right"
+        raycaster="objects: .collision,.clickable"
+        line="color: red; opacity: 0.75"
+        blink-controls="
+          cameraRig: #cameraRig;
+          teleportOrigin: #head;
+          collisionEntities: .collision
+        "
+      ></a-entity>
+    </a-entity>
+
+    <!-- FLOATING TEXTS -->
+    <a-text
+      class="interactive floatingText"
+      value="The room began to breathe without me."
+      position="0 12 -40"
+      width="90"
+      align="center"
+      color="#F5F3EE"
+      opacity="0.98"
+      font="https://cdn.aframe.io/fonts/Aileron-Semibold.fnt"
+      animation="property: position; dir: alternate; dur: 9000; loop: true; to: 0 15 -40"
+    ></a-text>
+
+    <a-text
+      class="interactive floatingText"
+      value="Something outside kept calling through the window."
+      position="45 10 -80"
+      rotation="0 -18 0"
+      width="80"
+      color="#DDE6D5"
+      opacity="0.96"
+      font="https://cdn.aframe.io/fonts/Aileron-Semibold.fnt"
+      animation="property: position; dir: alternate; dur: 11000; loop: true; to: 45 14 -80"
+    ></a-text>
+
+    <a-text
+      class="interactive floatingText"
+      value="The walls softened first."
+      position="-45 9 -70"
+      rotation="0 18 0"
+      width="70"
+      color="#D9D2C5"
+      opacity="0.96"
+      font="https://cdn.aframe.io/fonts/Aileron-Semibold.fnt"
+      animation="property: position; dir: alternate; dur: 8000; loop: true; to: -45 13 -70"
+    ></a-text>
+
+    <a-text
+      class="interactive floatingText"
+      value="I watched the floor remember it was once alive."
+      position="0 8 90"
+      rotation="0 180 0"
+      width="95"
+      align="center"
+      color="#EFE6D4"
+      opacity="0.97"
+      font="https://cdn.aframe.io/fonts/Aileron-Semibold.fnt"
+      animation="property: position; dir: alternate; dur: 12000; loop: true; to: 0 11 90"
+    ></a-text>
+
+    <!-- INTERACTION ZONES FOR TEXTS -->
+    <a-plane class="interactive" position="0 12 -40" width="100" height="30" material="opacity: 0"></a-plane>
+    <a-plane class="interactive" position="45 10 -80" rotation="0 -18 0" width="90" height="30" material="opacity: 0"></a-plane>
+    <a-plane class="interactive" position="-45 9 -70" rotation="0 18 0" width="90" height="30" material="opacity: 0"></a-plane>
+
+    <!-- MUSIC -->
+    <a-entity id="musicEntity" sound="src: #ambientMusic; autoplay: false; loop: true; positional: false; volume: 0.35"></a-entity>
+  </a-scene>
+
+  <script>
+    // Start all videos on first click
+    const startExperience = () => {
+      const wallVideo = document.querySelector("#mossVideo");
+      const floorVideo = document.querySelector("#floorVideo");
+      const ceilingVideo = document.querySelector("#ceilingVideo");
+      const skyVideo = document.querySelector("#skyVideo");
+      const mirrorVideo = document.querySelector("#mirrorVideo");
+      const music = document.querySelector("#musicEntity");
+
+      if (wallVideo && wallVideo.paused) wallVideo.play().catch(e => console.log("wall", e));
+      if (floorVideo && floorVideo.paused) floorVideo.play().catch(e => console.log("floor", e));
+      if (ceilingVideo && ceilingVideo.paused) ceilingVideo.play().catch(e => console.log("ceiling", e));
+      if (skyVideo && skyVideo.paused) skyVideo.play().catch(e => console.log("sky", e));
+      if (mirrorVideo && mirrorVideo.paused) mirrorVideo.play().catch(e => console.log("mirror", e));
+      if (music && music.components && music.components.sound) music.components.sound.playSound();
+    };
+    window.addEventListener("click", startExperience, { once: true });
+    window.addEventListener("touchstart", startExperience, { once: true });
+
+    // Gentle camera bobbing
+    const rig = document.querySelector("#cameraRig");
+    if (rig) rig.setAttribute("animation__float", "property: position; dir: alternate; dur: 6000; loop: true; to: 33.3266 1.05 33.17339");
+
+    // Text interactivity (scale on hover)
+    const interactiveZones = document.querySelectorAll(".interactive");
+    interactiveZones.forEach(zone => {
+      zone.addEventListener("mouseenter", () => {
+        document.querySelectorAll(".floatingText").forEach(text => {
+          text.setAttribute("animation__grow", "property: scale; to: 1.08 1.08 1.08; dur: 1600;");
+        });
+      });
+      zone.addEventListener("mouseleave", () => {
+        document.querySelectorAll(".floatingText").forEach(text => {
+          text.setAttribute("animation__shrink", "property: scale; to: 1 1 1; dur: 2200;");
+        });
+      });
+    });
+
+    // Resume videos when entering VR mode
+    const scene = document.querySelector("a-scene");
+    scene.addEventListener("enter-vr", () => {
+      const wallVideo = document.querySelector("#mossVideo");
+      const floorVideo = document.querySelector("#floorVideo");
+      const ceilingVideo = document.querySelector("#ceilingVideo");
+      const skyVideo = document.querySelector("#skyVideo");
+      const mirrorVideo = document.querySelector("#mirrorVideo");
+      if (wallVideo && wallVideo.paused) wallVideo.play();
+      if (floorVideo && floorVideo.paused) floorVideo.play();
+      if (ceilingVideo && ceilingVideo.paused) ceilingVideo.play();
+      if (skyVideo && skyVideo.paused) skyVideo.play();
+      if (mirrorVideo && mirrorVideo.paused) mirrorVideo.play();
+    });
+  </script>
+</body>
 </html>
